@@ -1,5 +1,10 @@
 # AtCoder CLI 使い方
 
+## テンプレートのある場所
+```
+acc config-dir
+```
+
 ## 新規コンテスト
 
 atcoderのディレクトリに遷移したうえで

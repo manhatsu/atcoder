@@ -43,7 +43,3 @@ while Q:
         if dist[ph][pw] > dist[nh][nw]+1:
             dist[ph][pw] = dist[nh][nw]+1
             Q.append((ph, pw))
-
-
-
-

@@ -1,3 +1,8 @@
+# djkstra
+# 計算量はO((V+E)log(V)) V: 頂点の数、E: 辺の数
+# 有向グラフでも無向グラフでも使える
+# 全ての辺のコストが正である必要あり。
+
 import heapq
 
 N, M = map(int, input().split()) # 頂点数，辺の数
