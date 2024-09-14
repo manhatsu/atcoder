@@ -1,6 +1,5 @@
 {
     "python.REPL.enableREPLSmartSend": false,
-
     "workbench.colorTheme": "Visual Studio Light - C++",
     "files.autoSave": "afterDelay",
     "python.defaultInterpreterPath": "/Users/manhatsu/anaconda3/bin/python",
@@ -90,4 +89,6 @@
         "python": false
     },
     "window.zoomLevel": 1,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.autoImportCompletions": true,
 }
