@@ -20,5 +20,6 @@ for i in range(N):
 for k in range(N): # 経由する点
     for i in range(N): # 始点
         for j in range(N): # 終点
+            if d[i][k] == INF or d[k][j] == INF: # オーバーフロー対策
+                continue
             d[i][j] = min(d[i][k]+d[k][j], d[i][j])
-

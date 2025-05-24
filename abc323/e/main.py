@@ -9,7 +9,20 @@ from collections import defaultdict, deque
 MOD = 998244353
 INF = float("inf")
 MINF = -float("inf")
+# from icecream import ic
 
-N = int(input())
-# N, K = map(int, input().split())
-A = list(map(int, input().split()))
+N, X = map(int, input().split())
+T = list(map(int, input().split()))
+
+dp = [0]*(X+1)
+dp[0] = pow(N, -1, MOD)
+for i in range(1, X+1):
+    for j in range(N):
+        if i - T[j] >= 0:
+            dp[i] += dp[i-T[j]]*pow(N, -1, MOD)
+            dp[i] %= MOD
+
+ans = sum(dp[-T[0]:]) % MOD
+print(ans)
+
+a = [1]

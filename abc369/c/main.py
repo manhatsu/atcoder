@@ -14,42 +14,25 @@ N = int(input())
 # N, K = map(int, input().split())
 A = list(map(int, input().split()))
 
-if N == 1:
-    ans = 1
-else:
+L = []
+ans = N
+prev_diff = INF
+j = 0
+while j < N-1:
+    start = j
+    diff = A[j+1] - A[j]
+    while True:
+        j += 1
+        if j >= N-1:
+            break
+        if A[j+1] - A[j] != diff:
+            break
+    L.append((start, j))
 
-    temp = 1
-    prev_val = -1
-    prev_diff = -1
-    continuous_num_list = []
-    for i, a in enumerate(A):
-        if i == 0:
-            prev_val = a
-            # prev_diff = a
-            continue
-        if i == 1:
-            prev_diff = a - prev_val
-            prev_val = a
-            continue
-        if (a - prev_val) == prev_diff:
-            temp += 1
-            prev_val = a
-            continue
-        else:
-            continuous_num_list.append(temp)
-            temp = 1
-            prev_diff = a - prev_val
-            prev_val = a
+# print(ans)
+# print(L)
 
-    continuous_num_list.append(temp)
-
-    # print(continuous_num_list)
-
-    ans = N
-    for n in continuous_num_list:
-        if n == 1:
-            ans += 1
-        else:
-            ans += n*(n-1)//2+n
+for s, e in L:
+    ans += (e-s+1)*(e-s) // 2
 
 print(ans)

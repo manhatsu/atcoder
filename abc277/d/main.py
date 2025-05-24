@@ -1,4 +1,3 @@
-from collections import deque
 N, M = map(int, input().split())
 A = list(map(int, input().split()))
 
@@ -6,7 +5,6 @@ A = sorted(A)
 S = sum(A)
 
 B = A+A
-# print(B)
 
 i, j = 0, 0
 inv_ret = 0
@@ -26,9 +24,3 @@ while i < N:
     i = j
 
 print(S-inv_ret)
-
-
-
-
-
-

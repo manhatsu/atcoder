@@ -10,6 +10,29 @@ MOD = 998244353
 INF = float("inf")
 MINF = -float("inf")
 
-N = int(input())
-# N, K = map(int, input().split())
+N, K = map(int, input().split())
+X = list(map(int, input().split()))
 A = list(map(int, input().split()))
+
+X = [x-1 for x in X]
+
+dv = [[-1]*N for i in range(61)]
+
+for j in range(N):
+    dv[0][j] = X[j]
+
+for i in range(1, 61):
+    for j in range(N):
+        dv[i][j] = dv[i-1][dv[i-1][j]]
+
+now = [j for j in range(N)]
+for i in range(61):
+    if K >> i & 1:
+        for j in range(N):
+            now[j] = dv[i][now[j]]
+
+ans = []
+for j in range(N):
+    ans.append(A[now[j]])
+
+print(*ans)

@@ -15,63 +15,40 @@ F = []
 for i in range(H):
     F.append(input())
 
-def getMinNChanges(S):
-    i, j = 0, 0
-    num_o, num_p = 0, 0
-    min_nchanges = K+1
+def getNChange(L):
+    num_o_dot = 0
+    num_dot = 0
+    cur = 0
+    ans = INF
+    while cur < len(L):
+        if L[cur] == 'o':
+            cur += 1
+            num_o_dot += 1
+        elif L[cur] == '.':
+            cur += 1
+            num_dot += 1
+            num_o_dot += 1
+        else:
+            cur += 1
+            num_dot = 0
+            num_o_dot = 0
+        if num_o_dot == K:
+            ans = min(ans, num_dot)
+            num_o_dot -= 1
+            if L[cur-K] == '.':
+                num_dot -= 1
+    return ans
+            
 
-    while(i<=len(S)-K):
-        reset_flag = False
-        end_flag = False
-        while(num_o+num_p < K):
-            if j >= len(S):
-                end_flag = True
-                break
-            if S[j] == 'x':
-                num_o = 0
-                num_p = 0
-                reset_flag = True
-                j += 1
-                break
-            if S[j] == 'o':
-                num_o += 1
-                j += 1
-                continue
-            if S[j] == '.':
-                num_p += 1
-                j += 1
-                continue
-        if end_flag:
-            break
-        if reset_flag:
-            i = j
-            continue
-        if num_p < min_nchanges:
-            min_nchanges = num_p
-        if S[i] == 'o':
-            num_o -= 1
-        elif S[i] == '.':
-            num_p -= 1
-        # elif S[i] == 'x':
-            # print('!!Bug found!!')
-            # print('i:', i, 'j:', j)
-        i += 1
-    return min_nchanges
+ans = INF
+for i in range(H):
+    L = F[i]
+    ans = min(ans, getNChange(L))
 
-ans = K+1
-# 横方向探索
-for h in range(H):
-    S = F[h]
-    temp = getMinNChanges(S)
-    if temp < ans:
-        ans = temp
-# 縦方向
-for w in range(W):
-    # print(w)
-    S = [f[w] for f in F]
-    # print('S:', S)
-    temp = getMinNChanges(S)
-    if temp < ans:
-        ans = temp
+for j in range(W):
+    L = []
+    for i in range(H):
+        L.append(F[i][j])
+    ans = min(ans, getNChange(L))
 
-print(-1 if ans == K+1 else ans)
+print(ans if ans != INF else -1)

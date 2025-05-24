@@ -82,11 +82,11 @@
     ],
     "editor.formatOnSave": true,
     "github.copilot.enable": {
-        "*": false,
-        "plaintext": false,
-        "markdown": false,
-        "scminput": false,
-        "python": false
+        "*": true,
+        "plaintext": true,
+        "markdown": true,
+        "scminput": true,
+        "python": true
     },
     "window.zoomLevel": 1,
     "python.analysis.typeCheckingMode": "basic",

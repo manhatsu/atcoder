@@ -12,25 +12,25 @@ INF = float("inf")
 MINF = -float("inf")
 
 N = int(input())
-# N, K = map(int, input().split())
 
-def getBaseOddNum(s, c):
-    while s%2 == 0:
-        s = s//2
+def getOrig(s, c):
+    while s % 2 == 0:
+        s //= 2
         c *= 2
     return s, c
 
-dic = defaultdict(int)
+D = defaultdict(int)
+
 for i in range(N):
     s, c = map(int, input().split())
-    s, c = getBaseOddNum(s, c)
-    dic[s] += c
+    s, c = getOrig(s, c)
+    D[s] += c
 
 ans = 0
-for s, c in dic.items():
-    for i in range(100):
-        if (c >> i) & 1:
-            ans += 1
+
+for v in D.values():
+    ans += v.bit_count()
 
 print(ans)
+
     

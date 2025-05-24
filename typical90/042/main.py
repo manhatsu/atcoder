@@ -3,7 +3,6 @@ K = int(input())
 # A_list = list(map(int, input().split()))
 
 if K % 9 != 0:
-    # print('K is not a multiple of 9')
     ans = 0
 else:
     dp = [0]*(K+1)

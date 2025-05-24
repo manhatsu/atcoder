@@ -1,6 +1,7 @@
 # AtCoder CLI 使い方
 
 ## テンプレートのある場所
+
 ```
 acc config-dir
 ```
@@ -58,18 +59,37 @@ code main.py
 
 各レベルのディレクトリ内で
 
-```python
+```cli
 
 ojt
 # oj t -c "python main.py" のエイリアス
 
 ```
 
+or
+
+```cli
+
+oj t
+# c++でテストしたい場合
+
+```
+
 ## 提出
 
-```python
+```cli
+
 accs
 # acc s -- main.py --language 5078 のエイリアス
 # 5078はpypy
+
+```
+
+or
+
+```cli
+
+accc
+# c++で提出したい場合
 
 ```

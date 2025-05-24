@@ -1,44 +1,29 @@
-
 N = int(input())
 A = list(map(int, input().split()))
+MOD = 998244353
 
-from collections import deque
+if N == 1:
+    print(1)
+else:
+    dp = [[[0]*(N+1) for i in range(N+1)] for j in range(N+1)]
 
-ans = [N] # 長さ1
-Q = deque()
-temp = 0
-for i in range(N):
-    for j in range(i+1, N):
-        d = A[j]-A[i]
-        Q.append((j, 2, d, A[j], 1))
-        temp += 1
-ans.append(temp)
+    for i in range(1, N):
+        for j in range(i+1, N+1):
+            dp[2][i][j] = 1
 
-print(Q)
+    for k in range(3, N+1):
+        for i in range(1, N-1):
+            for j in range(i+1, N):
+                for t in range(j+1, N+1):
+                    if A[j-1]-A[i-1] == A[t-1]-A[j-1]:
+                        dp[k][j][t] = (dp[k][j][t]+dp[k-1][i][j])%MOD
 
-endloop = False
-for z in range(3, N+1):
-    temp = 0
-    next_dic = {}
-    while Q:
-        n, k, d, l, v = Q.popleft()
-        for i, a in enumerate(A[n+1:]):
-            if a == l+d:
-                if (n+1+i, k+1, d, a) not in next_dic.keys():
-                    next_dic[(n+1+i, k+1, d, a)] = v+1
-                else:
-                    next_dic[(n+1+i, k+1, d, a)] += v+1
-    print(next_dic)
-    for t, w in next_dic.items(): 
-        temp += w
-        Q.append((t[0], t[1], t[2], t[3], w))
-    ans.append(temp)
+    R = [N]         
+    for k in range(2, N+1):
+        ret = 0
+        for i in range(1, N+1):
+            for j in range(1, N+1):
+                ret = (ret + dp[k][i][j])%MOD
+        R.append(ret%MOD)
 
-print(*ans)
-
-
-
-
-
-
-
+    print(*R)

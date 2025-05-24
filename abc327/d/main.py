@@ -14,37 +14,30 @@ N, M = map(int, input().split())
 A = list(map(int, input().split()))
 B = list(map(int, input().split()))
 
-G = [set() for i in range(N)]
+G = [set() for _ in range(N)]
 for i in range(M):
-    a = A[i]-1
-    b = B[i]-1
+    a, b = A[i], B[i]
+    a -= 1
+    b -= 1
     G[a].add(b)
     G[b].add(a)
 
-# print(G)
-
 seen = [-1]*N
-Q = deque()
-ans = True
+
 for i in range(N):
-    if seen[i] == -1:
-        seen[i] = 0
-        Q.append(i)
-        while Q:
-            v = Q.popleft()
-            next_bit = 1 - seen[v]
-            for lv in G[v]:
-                if seen[lv] == -1:
-                    seen[lv] = next_bit
-                    Q.append(lv)
-                    continue
-                if seen[lv] != next_bit:
-                    ans = False
-                    break
-            if not ans:
-                break
-    if not ans:
-        break
+    if seen[i] != -1:
+        continue
+    seen[i] = 0
+    Q = deque([i])
+    while Q:
+        q = Q.popleft()
+        for lq in G[q]:
+            if seen[lq] != -1:
+                if seen[lq] == seen[q]:
+                    print("No")
+                    exit()
+                continue
+            seen[lq] = 1 - seen[q]
+            Q.append(lq)
 
-print('Yes' if ans else 'No')
-
+print("Yes")

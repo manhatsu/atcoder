@@ -1,30 +1,29 @@
 N, M = map(int, input().split())
 
-S = []
-for i in range(N):
-    s = input()
-    S.append(s)
-
 from itertools import permutations
 
-perm = list(permutations([i for i in range(N)]))
+S = []
+for i in range(N):
+    S.append(input())
 
-ret = True
+perm = list(permutations(S))
+
+ans = 'No'
 for P in perm:
     ret = True
     for i in range(N-1):
-        count = 0
+        diff = 0
         for j in range(M):
-            if S[P[i]][j] != S[P[i+1]][j]:
-                count += 1
-                if count > 1:
-                    break
-        # print('diff for {} and {}'.format(P[i], P[i+1]), count)
-        if (count == 0) or (count > 1):
+            if P[i][j] != P[i+1][j]:
+                diff += 1
+        if diff != 1:
             ret = False
             break
-    if ret:
-        # print(P)
-        break
+    if not ret:
+        continue
+    ans = 'Yes'
+    break
 
-print('Yes' if ret else 'No')
+print(ans)
+    
+        

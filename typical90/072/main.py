@@ -11,28 +11,25 @@ seen = [[0]*W for _ in range(H)]
 dh = [0, 1, 0, -1]
 dw = [1, 0, -1, 0]
 
-def dfs(sh, sw, ph, pw):
-    if (sh == ph) and (sw == pw) and (seen[sh][sw] == 1):
-        return 0
-    seen[ph][pw] = 1
-    ret = -100000
-    for i in range(4):
-        nh = ph + dh[i]
-        nw = pw + dw[i]
-        if (0 <= nh < H) and (0 <= nw < W):
-            if (F[nh][nw] == '.'):
-                if (seen[nh][nw] == 0) or ((sh == nh) and (sw == nw)):
-                    v = dfs(sh, sw, nh, nw)
-                    ret = max(v+1, ret)
-    seen[ph][pw] = 0
-    return ret
+ret = -1
 
-ans = -1
+def dfs2(sh, sw, nh, nw, dist):
+    global ret
+    if sh == nh and sw == nw and seen[nh][nw] == 1:
+        ret = max(ret, dist)
+        return
+    seen[nh][nw] = 1
+    for i in range(4):
+        nnh = nh + dh[i]
+        nnw = nw + dw[i]
+        if (0 <= nnh < H) and (0 <= nnw < W):
+            if (F[nnh][nnw] == '.'):
+                if (seen[nnh][nnw] == 0) or (sh == nnh and sw == nnw):
+                    dfs2(sh, sw, nnh, nnw, dist+1)
+    seen[nh][nw] = 0
+
 for h in range(H):
     for w in range(W):
-        ret = dfs(h, w, h, w)
-        ans = max(ans, ret)
+        dfs2(h, w, h, w, 0)
 
-print(ans if ans > 2 else -1)
-
-# バックトラッキング． 要復習
+print(ret if ret > 2 else -1)

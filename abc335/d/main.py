@@ -22,16 +22,8 @@ dh = [0, 1, 0, -1]
 nh = 0
 nw = 0
 
-iter = 0
 while (num < N*N):
-    if nh < 0 or nh >= N or nw < 0 or nw >= N:
-        nh -= dh[phase]
-        nw -= dw[phase]
-        phase = (phase+1)%4
-        nh += dh[phase]
-        nw += dw[phase]
-        continue
-    if F[nh][nw] != 0:
+    if nh < 0 or nh >= N or nw < 0 or nw >= N or F[nh][nw] != 0:
         nh -= dh[phase]
         nw -= dw[phase]
         phase = (phase+1)%4

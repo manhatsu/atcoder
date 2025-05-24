@@ -1,4 +1,4 @@
-# 素因数分解
+# 素因数分解 O(√N)
 def prime_factorization(N):
     a = []
     cnt = 0
@@ -19,20 +19,19 @@ def prime_factorization(N):
         a.append([N, 1])
     return a
 
-# 最大公約数
-# O(log(min(a, b)))
-def gcd(a, b):
-    if b == 0:
-        return a
-    else:
-        return gcd(b, a%b)
-    
-# 最小公倍数
-def lcm(a, b):
-    d = gcd(a, b)
-    return int(a/d*b)
+# 約数列挙 O(√N)
+def make_divisors(n):
+    lower_divisors , upper_divisors = [], []
+    i = 1
+    while i*i <= n:
+        if n % i == 0:
+            lower_divisors.append(i)
+            if i != n // i:
+                upper_divisors.append(n//i)
+        i += 1
+    return lower_divisors + upper_divisors[::-1]
 
-# エラトステネスのふるい
+# 素数列挙 O(NloglogN) つまり、素数の個数はloglogN個
 def getprimes(n):
     is_prime = [True] * (n + 1)
     is_prime[0] = False
@@ -43,3 +42,15 @@ def getprimes(n):
         for j in range(i * 2, n + 1, i):
             is_prime[j] = False
     return [i for i in range(n + 1) if is_prime[i]]
+
+
+# 素数列挙を使い、N以下の数に対して素因数の個数を列挙 O(NloglogN)
+
+N = 5 # sample
+
+primes = getprimes(N)
+S = [0]*(N+1)
+
+for p in primes:
+    for bp in range(p, N+1, p):
+        S[bp] += 1
