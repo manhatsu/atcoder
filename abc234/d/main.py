@@ -1,0 +1,33 @@
+from collections import defaultdict, deque
+from itertools import combinations, permutations
+from bisect import bisect, bisect_left, bisect_right
+from sortedcontainers import SortedSet, SortedDict, SortedList
+import math
+import sys
+sys.setrecursionlimit(4100000)
+import heapq
+try:
+    from icecream import ic
+except ImportError:  # Graceful fallback if IceCream isn't installed.
+    ic = lambda *a: None if not a else (a[0] if len(a) == 1 else a)
+# def error(*args, end="\n"): print("[stderr]", *args, end=end, file=sys.stderr)
+MOD = 998244353
+INF = float("inf")
+MINF = -float("inf")
+
+N, K = map(int, input().split())
+P = list(map(int, input().split()))
+
+H = []
+heapq.heapify(H)
+
+ans = []
+for i in range(K):
+    heapq.heappush(H, P[i])
+ans.append(H[0])
+for i in range(K, N):
+    heapq.heappush(H, P[i])
+    heapq.heappop(H)
+    ans.append(H[0])
+
+print(*ans, sep='\n')
